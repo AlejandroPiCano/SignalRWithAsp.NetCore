@@ -4,4 +4,39 @@
 <h1>@ViewData["Title"]</h1>
 
 
-<ul id="TodoItems" >
+<ul id="todoItems" ></ul>
+</br></br>
+<div >
+<h2>Count:</h2>
+ <span id="todoItemsCount">0</span>
+ </div>
+
+
+@section Scripts{
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script>
+          
+    var connection = new signalR.HubConnectionBuilder().withUrl("/TodoItemHub").build();
+
+    connection.start().then(function () {
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    connection.on("ReceiveTodoItem", function (todoItemName, count) {
+        
+        var li = document.createElement("li");
+        document.getElementById("todoItems").appendChild(li);
+      
+        li.textContent = `${todoItemName}`;
+        document.getElementById("todoItemsCount").innerHTML = count;
+    });
+
+    connection.on("ResetTodoItem", function () {
+        document.getElementById("todoItems").innerHTML = "";
+        document.getElementById("todoItemsCount").innerHTML = 0;
+    });
+   
+  
+    </script>
+}

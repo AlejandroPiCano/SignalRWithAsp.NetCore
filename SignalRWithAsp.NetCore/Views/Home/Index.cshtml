@@ -4,6 +4,13 @@
 
 <div class="text-center">
     <h1>Enter the TODO item to insert</h1>
-  <input type="text" />
-  <input type="button" value="Insert"/>
+  <input type="text" id="todoItemName"/>
+  <input type="button" id="sendButton" value="Insert"/>
+
+    <input type="button" id="resetButton" value="Reset" style="float: right" />
 </div>
+
+@section Scripts{
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/todoitemcontroller.js"></script>
+}
